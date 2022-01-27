@@ -4,20 +4,20 @@
  Фишка задания сделать свою реализацию, чтобы понять, как он работает под капотом. Для перебора нужно делать через метод массива reduce
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
-const array = [1, 2, 3, 4, 5, 6];
+const arr = [-17, 10, 20, 30, 40, 50, 60, 70, 80, 90, -90];
 
 function map(array, callback) {
-  let resultArray = [];
-
-  for (let i = 0; i < array.length; i++) {
-    resultArray.push(callback(array[i], i, array));
-  }
-  return resultArray;
+  const arrMap = array.reduce((prev, curr, index, Array) => {
+    prev.push(callback(curr, index, array));
+    return prev;
+  }, []);
+  return arrMap;
 }
 
-map(array, (item, index, array) => {
-  return item * 5;
-})
+map(arr, (item) => {
+  return item * 2;
+});
+
 
 /* Функция принимает в себе первым аргументом массив, вторым функцию которая будет вызываться для каждого элемента массива
  вот документация https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
@@ -26,17 +26,16 @@ map(array, (item, index, array) => {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function filter(array, callback) {
-  let resultArray = [];
-  for (let i = 0; i < array.length; i++) {
-    const resultOfFunction = callback(array[i], i, array);
-    if (resultOfFunction) {
-      resultArray.push(array[i]);
+  const arrFilter = array.reduce((prev, curr, index) => {
+    if (callback(curr, index, array)) {
+      prev.push(curr);
     }
-  }
-  return resultArray;
+    return prev;
+  }, []);
+  return arrFilter;
 }
 
-filter(array, (item, index, array) => {
+filter(arr, (item, index, array) => {
   if (index % 2 === 0) {
     return true;
   }
@@ -49,15 +48,16 @@ filter(array, (item, index, array) => {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function some(array, callback) {
-  for (let i = 0; i < array.length; i++) {
-    if (callback(array[i], i, array)) {
-      return true;
+  const resultSome = arr.reduce((prev, curr) => {
+    if (curr === 60) {
+      prev = true;
     }
-  }
-  return false;
+    return prev;
+  }, false);
+  return resultSome;
 }
 
-some(array, (item, index, array) => {
+some(arr, (item, index, array) => {
   if (item > 3) {
     return true;
   }
@@ -71,15 +71,16 @@ some(array, (item, index, array) => {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function every(array, callback) {
-  for (let i = 0; i < array.length; i++) {
-    if (!callback(array[i], i, array)) {
-      return false;
+  const resultEvery = arr.reduce((prev, curr) => {
+    if (!(curr > 0)) {
+      prev = false;
     }
-  }
-  return true;
+    return prev;
+  }, true)
+  return resultEvery;
 }
 
-every(array, (item, index, array) => {
+every(arr, (item, index, array) => {
   if (item > 0) {
     return true;
   }
