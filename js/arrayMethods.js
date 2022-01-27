@@ -26,7 +26,7 @@ map(arr, (item) => {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function filter(array, callback) {
-  const arrFilter = array.reduce((prev, curr, index) => {
+  const arrFilter = array.reduce((prev, curr, index, array) => {
     if (callback(curr, index, array)) {
       prev.push(curr);
     }
@@ -48,7 +48,7 @@ filter(arr, (item, index, array) => {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function some(array, callback) {
-  const resultSome = array.reduce((prev, curr) => {
+  const resultSome = array.reduce((prev, curr, index, array) => {
     if (callback(curr, index, array)) {
       prev = true;
     }
@@ -71,7 +71,7 @@ some(arr, (item, index, array) => {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function every(array, callback) {
-  const resultEvery = array.reduce((prev, curr) => {
+  const resultEvery = array.reduce((prev, curr, index, array) => {
     if (!(callback(curr, index, array))) {
       prev = false;
     }
