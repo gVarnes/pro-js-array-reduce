@@ -48,8 +48,8 @@ filter(arr, (item, index, array) => {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function some(array, callback) {
-  const resultSome = arr.reduce((prev, curr) => {
-    if (curr === 60) {
+  const resultSome = array.reduce((prev, curr) => {
+    if (callback(curr, index, array)) {
       prev = true;
     }
     return prev;
@@ -58,7 +58,7 @@ function some(array, callback) {
 }
 
 some(arr, (item, index, array) => {
-  if (item > 3) {
+  if (item === 60) {
     return true;
   }
   return false;
@@ -71,8 +71,8 @@ some(arr, (item, index, array) => {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function every(array, callback) {
-  const resultEvery = arr.reduce((prev, curr) => {
-    if (!(curr > 0)) {
+  const resultEvery = array.reduce((prev, curr) => {
+    if (!(callback(curr, index, array))) {
       prev = false;
     }
     return prev;
